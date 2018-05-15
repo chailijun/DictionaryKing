@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <EditText
+        android:id="@+id/et_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="输入汉字或者拼音" />
+
+    <TextView
+        android:id="@+id/tv_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        tools:text="搜索结果" />
+
+</LinearLayout>
