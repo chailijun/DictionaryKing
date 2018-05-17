@@ -62,4 +62,6 @@ dependencies {
     //okhttp3
     api 'com.squareup.okhttp3:okhttp:3.10.0'
     api 'com.squareup.okhttp3:logging-interceptor:3.9.0'
+
+    api 'com.readystatesoftware.sqliteasset:sqliteassethelper:2.0.1'
 }

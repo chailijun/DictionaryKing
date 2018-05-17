@@ -3,8 +3,8 @@ package com.chailijun.dictionaryking.search;
 import android.support.annotation.NonNull;
 
 
-import com.chailijun.baselib.data.Dictionary;
-import com.chailijun.baselib.data.DictionaryRepository;
+import com.chailijun.baselib.repository.Dictionary;
+import com.chailijun.baselib.repository.DictionaryRepository;
 import com.chailijun.baselib.utils.schedulers.BaseSchedulerProvider;
 
 

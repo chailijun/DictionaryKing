@@ -1,20 +1,13 @@
 package com.chailijun.dictionaryking.search;
 
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import com.chailijun.baselib.base.BaseActivity;
-import com.chailijun.baselib.data.DictionaryRepository;
-import com.chailijun.baselib.data.source.local.DictionaryLocalDataSource;
+import com.chailijun.baselib.repository.DictionaryRepository;
+import com.chailijun.baselib.repository.source.local.DictionaryLocalDataSource;
 import com.chailijun.baselib.utils.schedulers.SchedulerProvider;
 import com.chailijun.dictionaryking.R;
 import com.chailijun.dictionaryking.utils.ActivityUtils;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class SearchActivity extends BaseActivity {
 

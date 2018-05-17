@@ -3,7 +3,7 @@ package com.chailijun.dictionaryking.search;
 
 import com.chailijun.baselib.base.BasePresenter;
 import com.chailijun.baselib.base.BaseView;
-import com.chailijun.baselib.data.Dictionary;
+import com.chailijun.baselib.repository.Dictionary;
 
 
 public interface SearchContract {
