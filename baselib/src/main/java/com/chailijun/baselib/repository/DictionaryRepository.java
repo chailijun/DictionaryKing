@@ -4,6 +4,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 
+import java.util.List;
+
 import io.reactivex.Flowable;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -57,7 +59,7 @@ public class DictionaryRepository implements DictionaryDataSource {
 
 
     @Override
-    public Flowable<Dictionary> getDictionary(String hanzi) {
+    public Flowable<List<Dictionary>> getDictionary(String hanzi) {
         return mDictionaryLocalDataSource.getDictionary(hanzi);
     }
 }

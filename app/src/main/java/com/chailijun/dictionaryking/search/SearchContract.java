@@ -5,6 +5,8 @@ import com.chailijun.baselib.base.BasePresenter;
 import com.chailijun.baselib.base.BaseView;
 import com.chailijun.baselib.repository.Dictionary;
 
+import java.util.List;
+
 
 public interface SearchContract {
 
@@ -12,7 +14,7 @@ public interface SearchContract {
 
         void showError(String errorMsg);
 
-        void showHanzi(Dictionary dictionary);
+        void showHanzi(List<Dictionary> dictionaryList);
     }
 
     interface Presenter extends BasePresenter {

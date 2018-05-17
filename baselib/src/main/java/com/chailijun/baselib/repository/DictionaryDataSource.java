@@ -1,6 +1,8 @@
 package com.chailijun.baselib.repository;
 
 
+import java.util.List;
+
 import io.reactivex.Flowable;
 
 /**
@@ -9,7 +11,7 @@ import io.reactivex.Flowable;
 
 public interface DictionaryDataSource {
 
-    Flowable<Dictionary> getDictionary(String hanzi);
+    Flowable<List<Dictionary>> getDictionary(String hanzi);
 
 
 }

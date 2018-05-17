@@ -2,6 +2,8 @@ package com.chailijun.baselib.databases;
 
 import com.chailijun.baselib.repository.Dictionary;
 
+import java.util.List;
+
 import io.reactivex.Flowable;
 
 public interface DictionaryDBApi {
@@ -12,5 +14,5 @@ public interface DictionaryDBApi {
      * @param zi
      * @return
      */
-    Flowable<Dictionary> getDictionary(String zi);
+    Flowable<List<Dictionary>> getDictionary(String zi);
 }

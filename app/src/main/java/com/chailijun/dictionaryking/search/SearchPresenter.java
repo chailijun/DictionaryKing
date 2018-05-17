@@ -8,6 +8,8 @@ import com.chailijun.baselib.repository.DictionaryRepository;
 import com.chailijun.baselib.utils.schedulers.BaseSchedulerProvider;
 
 
+import java.util.List;
+
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
@@ -73,10 +75,14 @@ public class SearchPresenter implements SearchContract.Presenter {
         mCompositeDisposable.add(disposable);
     }
 
+    private void processDatas(List<Dictionary> dictionarys) {
+        mView.showHanzi(dictionarys);
+    }
 
-    private void processDatas(@NonNull Dictionary dictionary) {
+
+    /*private void processDatas(@NonNull Dictionary dictionary) {
         mView.showHanzi(dictionary);
 
-    }
+    }*/
 
 }

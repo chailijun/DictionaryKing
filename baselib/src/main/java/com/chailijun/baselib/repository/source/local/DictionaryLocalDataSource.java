@@ -8,6 +8,8 @@ import com.chailijun.baselib.repository.Dictionary;
 import com.chailijun.baselib.repository.DictionaryDataSource;
 import com.chailijun.baselib.utils.schedulers.BaseSchedulerProvider;
 
+import java.util.List;
+
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
 
@@ -45,7 +47,7 @@ public class DictionaryLocalDataSource implements DictionaryDataSource {
 
 
     @Override
-    public Flowable<Dictionary> getDictionary(String hanzi) {
+    public Flowable<List<Dictionary>> getDictionary(String hanzi) {
         return dbOpenHelper.getDictionary(hanzi);
     }
 }
