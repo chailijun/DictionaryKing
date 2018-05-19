@@ -1,6 +1,9 @@
 package com.chailijun.baselib.repository;
 
-public class Dictionary {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Dictionary implements Parcelable{
 
     private float id;
 
@@ -19,6 +22,35 @@ public class Dictionary {
     private String xiangjie;
 
     private int sort;
+
+    public Dictionary(){
+
+    }
+
+    protected Dictionary(Parcel in) {
+        id = in.readFloat();
+        zi = in.readString();
+        py = in.readString();
+        wubi = in.readString();
+        bushou = in.readString();
+        bihua = in.readFloat();
+        pinyin = in.readString();
+        jijie = in.readString();
+        xiangjie = in.readString();
+        sort = in.readInt();
+    }
+
+    public static final Creator<Dictionary> CREATOR = new Creator<Dictionary>() {
+        @Override
+        public Dictionary createFromParcel(Parcel in) {
+            return new Dictionary(in);
+        }
+
+        @Override
+        public Dictionary[] newArray(int size) {
+            return new Dictionary[size];
+        }
+    };
 
     public int getSort() {
         return sort;
@@ -113,5 +145,24 @@ public class Dictionary {
                 ", jijie='" + jijie + '\'' +
                 ", xiangjie='" + xiangjie + '\'' +
                 '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeFloat(id);
+        dest.writeString(zi);
+        dest.writeString(py);
+        dest.writeString(wubi);
+        dest.writeString(bushou);
+        dest.writeFloat(bihua);
+        dest.writeString(pinyin);
+        dest.writeString(jijie);
+        dest.writeString(xiangjie);
+        dest.writeInt(sort);
     }
 }

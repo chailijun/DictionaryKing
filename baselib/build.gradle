@@ -47,6 +47,10 @@ dependencies {
 
     api "com.jakewharton:butterknife:8.8.1"
 
+    //适配屏幕引入鸿洋大神的屏幕适配方案
+    //https://github.com/hongyangAndroid/AndroidAutoLayout
+    api 'com.zhy:autolayout:1.4.5'
+
 
     //gson
     api "com.google.code.gson:gson:2.4"

@@ -3,20 +3,22 @@ package com.chailijun.dictionaryking.search;
 import android.os.Bundle;
 
 import com.chailijun.baselib.base.BaseActivity;
+import com.chailijun.baselib.repository.Dictionary;
 import com.chailijun.baselib.repository.DictionaryRepository;
 import com.chailijun.baselib.repository.source.local.DictionaryLocalDataSource;
 import com.chailijun.baselib.utils.schedulers.SchedulerProvider;
 import com.chailijun.dictionaryking.R;
 import com.chailijun.dictionaryking.utils.ActivityUtils;
+import com.chailijun.dictionaryking.utils.JumpUtils;
 
-public class SearchActivity extends BaseActivity {
+public class SearchActivity extends BaseActivity implements SearchFragment.SearchFragmentListener{
 
     private SearchPresenter mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
+        setContentView(R.layout.activity_common);
 
 
         SearchFragment searchFragment =
@@ -35,5 +37,10 @@ public class SearchActivity extends BaseActivity {
                 searchFragment,
                 SchedulerProvider.getInstance()
         );
+    }
+
+    @Override
+    public void gotoDetail(Dictionary dictionary) {
+        JumpUtils.goToDetailActivity(this,dictionary);
     }
 }

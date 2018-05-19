@@ -8,12 +8,16 @@
     tools:context=".home.MainActivity">
 
     <TextView
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/text_color_grey"
+        android:drawableLeft="@drawable/ic_search"
         android:textSize="18sp"
         android:gravity="center_vertical"
         android:id="@+id/tv_input"
         android:hint="输入汉字或拼音"
-        android:layout_width="match_parent"
-        android:layout_height="80dp" />
+        android:layout_width="800px"
+        app:layout_auto_basewidth="height"
+        android:layout_height="150px" />
 
     <LinearLayout
         android:layout_width="match_parent"

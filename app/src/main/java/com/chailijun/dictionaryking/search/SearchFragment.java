@@ -1,5 +1,6 @@
 package com.chailijun.dictionaryking.search;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,6 +16,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chailijun.baselib.base.BaseFragment;
 import com.chailijun.baselib.repository.Dictionary;
 import com.chailijun.dictionaryking.R;
@@ -40,6 +42,21 @@ public class SearchFragment extends BaseFragment implements SearchContract.View 
     private SearchContract.Presenter mPresenter;
 
     private SearchResultAdapter mAdapter;
+
+    private SearchFragmentListener searchFragmentListener;
+
+    interface SearchFragmentListener{
+
+        void gotoDetail(Dictionary dictionary);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof SearchFragmentListener){
+            this.searchFragmentListener = ((SearchFragmentListener) context);
+        }
+    }
 
     @Override
     public void onResume() {
@@ -68,6 +85,16 @@ public class SearchFragment extends BaseFragment implements SearchContract.View 
         rvResult.setHasFixedSize(true);
         rvResult.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvResult.setAdapter(mAdapter = new SearchResultAdapter(null));
+        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                if (searchFragmentListener != null){
+                    Dictionary dictionary = (Dictionary) adapter.getData().get(position);
+                    searchFragmentListener.gotoDetail(dictionary);
+                }
+
+            }
+        });
 
         etInput.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -84,6 +111,26 @@ public class SearchFragment extends BaseFragment implements SearchContract.View 
                     }
                 }
                 return false;
+            }
+        });
+
+        etInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (mPresenter != null) {
+                    String searchText = s.toString();
+                    mPresenter.search(searchText);
+                }
             }
         });
     }

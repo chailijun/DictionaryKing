@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Locale;
 
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
@@ -48,34 +47,61 @@ public class DictionarysDBOpenHelper extends SQLiteAssetHelper implements Dictio
     }
 
     @Override
-    public Flowable<List<Dictionary>> getDictionary(String hanzi) {
+    public Flowable<List<Dictionary>> getDictionary(String keyWord) {
         return Flowable.create(e -> {
-            e.onNext(getDictionaryFromDB(hanzi));
+            e.onNext(getDictionaryFromDB(keyWord));
             e.onComplete();
         }, BackpressureStrategy.BUFFER);
     }
 
-    private List<Dictionary> getDictionaryFromDB(String hanzi) {
-        if (hanzi != null && !TextUtils.isEmpty(hanzi)) {
+    private List<Dictionary> getDictionaryFromDB(String keyWord) {
+        if (keyWord != null && !TextUtils.isEmpty(keyWord)) {
 
             StringBuilder SQL = new StringBuilder();
             SQL.append("select * from xhzd_surnfu where ");
 
-            if (!StringUtils.isContainEnglish(hanzi)) {//1.如果搜索全是汉字
-                int length = hanzi.length();
+            //根据输入搜索的关键字类型不同来拼接SQL
+            if (!StringUtils.isContainChar(keyWord)) {//1.搜索全是汉字
+                int length = keyWord.length();
                 for (int i = 0; i < length; i++) {
                     SQL.append("zi = ");
                     SQL.append("'");
-                    SQL.append(hanzi.charAt(i));
+                    SQL.append(keyWord.charAt(i));
                     SQL.append("'");
 
                     if (i < length - 1) {
                         SQL.append(" or ");
                     }
                 }
-            } else if (!StringUtils.isContainChinese(hanzi)) {
+            } else if (!StringUtils.isContainChinese(keyWord)) {//2.搜索全是字母
+                //搜索拼音以关键字开头的汉字
+                SQL.append("py like ");
+                SQL.append("'");
+                SQL.append(keyWord);
+                SQL.append("%'");
+                SQL.append(" or ");
+                SQL.append("pinyin like ");
+                SQL.append("'");
+                SQL.append(keyWord);
+                SQL.append("%'");
 
+            }else if(StringUtils.isContainChar(keyWord)
+                    && StringUtils.isContainChinese(keyWord)){//3.搜索既有字母又有汉字
+
+                String searchKey = StringUtils.removeChar(keyWord);
+                int length = searchKey.length();
+                for (int i = 0; i < length; i++) {
+                    SQL.append("zi = ");
+                    SQL.append("'");
+                    SQL.append(searchKey.charAt(i));
+                    SQL.append("'");
+
+                    if (i < length - 1) {
+                        SQL.append(" or ");
+                    }
+                }
             }
+
             SQLiteDatabase db = getReadableDatabase();
             Cursor cursor = db.rawQuery(SQL.toString(), null);
 
@@ -116,12 +142,12 @@ public class DictionarysDBOpenHelper extends SQLiteAssetHelper implements Dictio
 
                 if (!bookEntityList.isEmpty()) {
 
-                    if (!StringUtils.isContainEnglish(hanzi)) {//1.如果搜索全是汉字
+                    if (!StringUtils.isContainChar(keyWord)) {//1.如果搜索全是汉字
                         //搜索结果的顺序与输入的汉字顺序保持一致
-                        int length = hanzi.length();
+                        int length = keyWord.length();
                         for (int i = 0; i < length; i++) {
                             for (Dictionary dic:bookEntityList) {
-                                char c = hanzi.charAt(i);
+                                char c = keyWord.charAt(i);
                                 char c1 = dic.getZi().charAt(0);
                                 if (c == c1){
                                     dic.setSort(i);
