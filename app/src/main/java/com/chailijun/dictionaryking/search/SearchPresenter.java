@@ -64,7 +64,7 @@ public class SearchPresenter implements SearchContract.Presenter {
 
         mCompositeDisposable.clear();
         Disposable disposable = mBooksRepository
-                .getDictionary(hanzi)
+                .getDictionaryList(hanzi)
                 .flatMap(new Function<List<Dictionary>, Publisher<Dictionary>>() {
                     @Override
                     public Publisher<Dictionary> apply(List<Dictionary> dictionaries) throws Exception {

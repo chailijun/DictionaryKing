@@ -3,10 +3,12 @@ package com.chailijun.baselib.databases;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.chailijun.baselib.repository.Dictionary;
+import com.chailijun.baselib.utils.Constants;
 import com.chailijun.baselib.utils.StringUtils;
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
@@ -14,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Random;
 
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
@@ -24,6 +27,8 @@ public class DictionarysDBOpenHelper extends SQLiteAssetHelper implements Dictio
 
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "xinhuazidian.sqlite";
+
+    public static final String TABLE_NAME= "xhzd_surnfu";
 
 
     public final Context mContext;
@@ -47,18 +52,26 @@ public class DictionarysDBOpenHelper extends SQLiteAssetHelper implements Dictio
     }
 
     @Override
-    public Flowable<List<Dictionary>> getDictionary(String keyWord) {
+    public Flowable<List<Dictionary>> getDictionaryList(String keyWord) {
+        return Flowable.create(e -> {
+            e.onNext(getDictionaryListFromDB(keyWord));
+            e.onComplete();
+        }, BackpressureStrategy.BUFFER);
+    }
+
+    @Override
+    public Flowable<Dictionary> getDictionary(String keyWord) {
         return Flowable.create(e -> {
             e.onNext(getDictionaryFromDB(keyWord));
             e.onComplete();
         }, BackpressureStrategy.BUFFER);
     }
 
-    private List<Dictionary> getDictionaryFromDB(String keyWord) {
+    private List<Dictionary> getDictionaryListFromDB(String keyWord) {
         if (keyWord != null && !TextUtils.isEmpty(keyWord)) {
 
             StringBuilder SQL = new StringBuilder();
-            SQL.append("select * from xhzd_surnfu where ");
+            SQL.append("select * from "+TABLE_NAME+" where ");
 
             //根据输入搜索的关键字类型不同来拼接SQL
             if (!StringUtils.isContainChar(keyWord)) {//1.搜索全是汉字
@@ -105,32 +118,11 @@ public class DictionarysDBOpenHelper extends SQLiteAssetHelper implements Dictio
             SQLiteDatabase db = getReadableDatabase();
             Cursor cursor = db.rawQuery(SQL.toString(), null);
 
-            List<Dictionary> bookEntityList = new ArrayList<>();
+            List<Dictionary> dictionaryList = new ArrayList<>();
             try {
                 if (cursor.moveToFirst()) {
                     do {
-                        Dictionary dictionary = new Dictionary();
-                        float id = cursor.getFloat(cursor.getColumnIndex("id"));
-                        String zi = cursor.getString(cursor.getColumnIndex("zi"));
-                        String py = cursor.getString(cursor.getColumnIndex("py"));
-                        String wubi = cursor.getString(cursor.getColumnIndex("wubi"));
-                        String bushou = cursor.getString(cursor.getColumnIndex("bushou"));
-                        float bihua = cursor.getFloat(cursor.getColumnIndex("bihua"));
-                        String pinyin = cursor.getString(cursor.getColumnIndex("pinyin"));
-                        String jijie = cursor.getString(cursor.getColumnIndex("jijie"));
-                        String xiangjie = cursor.getString(cursor.getColumnIndex("xiangjie"));
-
-                        dictionary.setId(id);
-                        dictionary.setZi(zi);
-                        dictionary.setPy(py);
-                        dictionary.setWubi(wubi);
-                        dictionary.setBushou(bushou);
-                        dictionary.setBihua(bihua);
-                        dictionary.setPinyin(pinyin);
-                        dictionary.setJijie(jijie);
-                        dictionary.setXiangjie(xiangjie);
-
-                        bookEntityList.add(dictionary);
+                        dictionaryList.add(getDictionary(cursor));
                     } while (cursor.moveToNext());
                 }
             } catch (Exception e) {
@@ -140,13 +132,13 @@ public class DictionarysDBOpenHelper extends SQLiteAssetHelper implements Dictio
                     cursor.close();
                 }
 
-                if (!bookEntityList.isEmpty()) {
+                if (!dictionaryList.isEmpty()) {
 
                     if (!StringUtils.isContainChar(keyWord)) {//1.如果搜索全是汉字
                         //搜索结果的顺序与输入的汉字顺序保持一致
                         int length = keyWord.length();
                         for (int i = 0; i < length; i++) {
-                            for (Dictionary dic:bookEntityList) {
+                            for (Dictionary dic:dictionaryList) {
                                 char c = keyWord.charAt(i);
                                 char c1 = dic.getZi().charAt(0);
                                 if (c == c1){
@@ -155,7 +147,7 @@ public class DictionarysDBOpenHelper extends SQLiteAssetHelper implements Dictio
                                 }
                             }
                         }
-                        Collections.sort(bookEntityList, new Comparator<Dictionary>() {
+                        Collections.sort(dictionaryList, new Comparator<Dictionary>() {
                             @Override
                             public int compare(Dictionary o1, Dictionary o2) {
                                 return o1.getSort()-o2.getSort();
@@ -163,7 +155,7 @@ public class DictionarysDBOpenHelper extends SQLiteAssetHelper implements Dictio
                         });
                     }
 
-                    return bookEntityList;
+                    return dictionaryList;
                 }
                 return Collections.emptyList();
             }
@@ -171,5 +163,64 @@ public class DictionarysDBOpenHelper extends SQLiteAssetHelper implements Dictio
         }
         return Collections.emptyList();
 
+    }
+
+    private Dictionary getDictionaryFromDB(String keyWord) {
+
+        String SQL = "select * from "+TABLE_NAME+" where ";
+        if (keyWord != null && !TextUtils.isEmpty(keyWord)) {
+
+            SQL += "zi = '"+keyWord+"'";
+        }else {
+            int id = (new Random().nextInt(Constants.HANZI_COUNT))+1;
+            SQL += "id = "+id;
+        }
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery(SQL, null);
+
+        List<Dictionary> dictionaryList = new ArrayList<>();
+        try {
+            if (cursor.moveToFirst()) {
+                do {
+                    dictionaryList.add(getDictionary(cursor));
+                } while (cursor.moveToNext());
+            }
+        } catch (Exception e) {
+            Log.d(TAG, "Error while trying to get lesson from database");
+        } finally {
+            if (cursor != null && !cursor.isClosed()) {
+                cursor.close();
+            }
+
+            if (!dictionaryList.isEmpty()) {
+                return dictionaryList.get(0);
+            }
+            return null;
+        }
+    }
+
+    @NonNull
+    private Dictionary getDictionary(Cursor cursor) {
+        Dictionary dictionary = new Dictionary();
+        float id = cursor.getFloat(cursor.getColumnIndex("id"));
+        String zi = cursor.getString(cursor.getColumnIndex("zi"));
+        String py = cursor.getString(cursor.getColumnIndex("py"));
+        String wubi = cursor.getString(cursor.getColumnIndex("wubi"));
+        String bushou = cursor.getString(cursor.getColumnIndex("bushou"));
+        float bihua = cursor.getFloat(cursor.getColumnIndex("bihua"));
+        String pinyin = cursor.getString(cursor.getColumnIndex("pinyin"));
+        String jijie = cursor.getString(cursor.getColumnIndex("jijie"));
+        String xiangjie = cursor.getString(cursor.getColumnIndex("xiangjie"));
+
+        dictionary.setId(id);
+        dictionary.setZi(zi);
+        dictionary.setPy(py);
+        dictionary.setWubi(wubi);
+        dictionary.setBushou(bushou);
+        dictionary.setBihua(bihua);
+        dictionary.setPinyin(pinyin);
+        dictionary.setJijie(jijie);
+        dictionary.setXiangjie(xiangjie);
+        return dictionary;
     }
 }

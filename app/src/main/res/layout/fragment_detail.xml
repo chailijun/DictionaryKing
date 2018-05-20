@@ -17,8 +17,8 @@
             android:textColor="@color/md_red_500"
             android:background="@android:color/white"
             android:id="@+id/tv_hanzi"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:textSize="50sp"
             tools:text="柴" />
 

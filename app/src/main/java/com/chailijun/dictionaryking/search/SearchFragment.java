@@ -144,6 +144,14 @@ public class SearchFragment extends BaseFragment implements SearchContract.View 
     }
 
     @Override
+    public void onDestroy() {
+        if (mPresenter != null){
+            mPresenter.unsubscribe();
+        }
+        super.onDestroy();
+    }
+
+    @Override
     public void showError(String errorMsg) {
         showToast(errorMsg);
     }

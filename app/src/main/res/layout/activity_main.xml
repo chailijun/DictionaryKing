@@ -1,47 +1,165 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".home.MainActivity">
 
-    <TextView
-        android:layout_gravity="center_horizontal"
-        android:textColor="@color/text_color_grey"
-        android:drawableLeft="@drawable/ic_search"
-        android:textSize="18sp"
-        android:gravity="center_vertical"
-        android:id="@+id/tv_input"
-        android:hint="输入汉字或拼音"
-        android:layout_width="800px"
-        app:layout_auto_basewidth="height"
-        android:layout_height="150px" />
-
-    <LinearLayout
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
 
-        <Button
-            android:id="@+id/btn_pinyin"
-            android:layout_weight="1"
-            android:text="拼音"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="40dp"
+            android:text="@string/app_name"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size_36"
+            app:layout_scrollFlags="scroll" />
 
-        <Button
-            android:id="@+id/btn_bushou"
-            android:layout_weight="1"
-            android:text="部首"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_input"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/shape_edittext_bg"
+            android:drawableLeft="@drawable/ic_search"
+            android:drawablePadding="8dp"
+            android:gravity="center_vertical"
+            android:hint="输入汉字或拼音"
+            android:paddingLeft="10dp"
+            android:textColor="@color/text_color_grey"
+            android:textSize="@dimen/text_size_14" />
 
-        <Button
-            android:id="@+id/btn_bihua"
-            android:layout_weight="1"
-            android:text="笔画"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-</LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="@dimen/marginLeft"
+            android:layout_marginRight="@dimen/marginRight"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/shape_tab_bg"
+            app:layout_scrollFlags="scroll">
+
+            <Button
+                android:id="@+id/btn_pinyin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:text="拼音"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_size_14" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/white" />
+
+            <Button
+                android:id="@+id/btn_bushou"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:text="部首"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_size_14" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@android:color/white" />
+
+            <Button
+                android:id="@+id/btn_bihua"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:text="笔画"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_size_14" />
+        </LinearLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
+
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="3dp"
+                    android:layout_height="16dp"
+                    android:layout_marginRight="4dp"
+                    android:background="@drawable/shape_tag_red" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:text="每日一字"
+                    android:textColor="@color/text_color_grey_99"
+                    android:textSize="@dimen/text_size_14" />
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <ImageButton
+                    android:id="@+id/iv_update"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/main_dict_daily_ic_refresh" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_daily_hanzi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textSize="80sp"
+                tools:text="福" />
+
+            <TextView
+                android:id="@+id/tv_daily_jieshi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textSize="@dimen/text_size_16"
+                tools:text="关关雎鸠，在河之洲。\n窈窕淑女，君子好逑。" />
+
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.design.widget.CoordinatorLayout>

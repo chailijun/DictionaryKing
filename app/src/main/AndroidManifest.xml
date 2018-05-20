@@ -10,12 +10,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <meta-data
-            android:name="design_width"
-            android:value="1080"></meta-data>
-        <meta-data
-            android:name="design_height"
-            android:value="1920"></meta-data>
+
+        <!-- <meta-data -->
+        <!-- android:name="design_width" -->
+        <!-- android:value="1080"></meta-data> -->
+        <!-- <meta-data -->
+        <!-- android:name="design_height" -->
+        <!-- android:value="1920"></meta-data> -->
 
         <activity android:name=".home.MainActivity">
             <intent-filter>
@@ -25,7 +26,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".search.SearchActivity" />
-        <activity android:name=".detail.DetailActivity"></activity>
+        <activity android:name=".detail.DetailActivity" />
+        <activity
+            android:name=".home.ScrollingActivity"
+            android:label="@string/title_activity_scrolling"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

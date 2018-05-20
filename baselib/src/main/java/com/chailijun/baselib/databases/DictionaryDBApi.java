@@ -11,8 +11,10 @@ public interface DictionaryDBApi {
     /**
      * 根据汉字查找
      *
-     * @param zi
+     * @param keyWord
      * @return
      */
-    Flowable<List<Dictionary>> getDictionary(String zi);
+    Flowable<List<Dictionary>> getDictionaryList(String keyWord);
+
+    Flowable<Dictionary> getDictionary(String keyWord);
 }

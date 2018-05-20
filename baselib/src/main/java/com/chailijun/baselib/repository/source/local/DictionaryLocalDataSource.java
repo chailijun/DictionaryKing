@@ -10,7 +10,6 @@ import com.chailijun.baselib.utils.schedulers.BaseSchedulerProvider;
 
 import java.util.List;
 
-import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -47,7 +46,12 @@ public class DictionaryLocalDataSource implements DictionaryDataSource {
 
 
     @Override
-    public Flowable<List<Dictionary>> getDictionary(String hanzi) {
+    public Flowable<List<Dictionary>> getDictionaryList(String hanzi) {
+        return dbOpenHelper.getDictionaryList(hanzi);
+    }
+
+    @Override
+    public Flowable<Dictionary> getDictionary(String hanzi) {
         return dbOpenHelper.getDictionary(hanzi);
     }
 }

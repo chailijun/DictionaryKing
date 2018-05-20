@@ -33,6 +33,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     api 'com.android.support:appcompat-v7:27.1.1'
+    api 'com.android.support:design:27.1.1'
     api "com.android.support:recyclerview-v7:27.1.1"
 
     testImplementation 'junit:junit:4.12'
@@ -47,9 +48,9 @@ dependencies {
 
     api "com.jakewharton:butterknife:8.8.1"
 
-    //适配屏幕引入鸿洋大神的屏幕适配方案
-    //https://github.com/hongyangAndroid/AndroidAutoLayout
-    api 'com.zhy:autolayout:1.4.5'
+//    //适配屏幕引入鸿洋大神的屏幕适配方案
+//    //https://github.com/hongyangAndroid/AndroidAutoLayout
+//    api 'com.zhy:autolayout:1.4.5'
 
 
     //gson

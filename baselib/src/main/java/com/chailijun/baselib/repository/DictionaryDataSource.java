@@ -11,7 +11,9 @@ import io.reactivex.Flowable;
 
 public interface DictionaryDataSource {
 
-    Flowable<List<Dictionary>> getDictionary(String hanzi);
+    Flowable<List<Dictionary>> getDictionaryList(String hanzi);
+
+    Flowable<Dictionary> getDictionary(String hanzi);
 
 
 }

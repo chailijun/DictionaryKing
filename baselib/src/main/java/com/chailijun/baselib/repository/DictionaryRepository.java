@@ -59,7 +59,12 @@ public class DictionaryRepository implements DictionaryDataSource {
 
 
     @Override
-    public Flowable<List<Dictionary>> getDictionary(String hanzi) {
+    public Flowable<List<Dictionary>> getDictionaryList(String hanzi) {
+        return mDictionaryLocalDataSource.getDictionaryList(hanzi);
+    }
+
+    @Override
+    public Flowable<Dictionary> getDictionary(String hanzi) {
         return mDictionaryLocalDataSource.getDictionary(hanzi);
     }
 }

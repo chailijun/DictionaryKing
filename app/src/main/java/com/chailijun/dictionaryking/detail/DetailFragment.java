@@ -152,7 +152,7 @@ public class DetailFragment extends BaseFragment {
         if (dictionary != null) {
             tv_hanzi.setText(dictionary.getZi());
             //设置字体
-            Typeface typeface=Typeface.createFromAsset(C.get().getAssets(),"siyuansongti.otf");
+            Typeface typeface=Typeface.createFromAsset(C.get().getAssets(),"HuaWenKaiTi.ttf");
             tv_hanzi.setTypeface(typeface);
 
             //设置拼音
@@ -180,6 +180,8 @@ public class DetailFragment extends BaseFragment {
             unbinder.unbind();
         }
     }
+
+
 
     private Dictionary currentDictionary() {
         final Bundle arguments = getArguments();

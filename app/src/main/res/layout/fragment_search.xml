@@ -11,8 +11,7 @@
         android:inputType="text"
         android:id="@+id/et_input"
         android:layout_width="match_parent"
-        android:layout_height="150px"
-        app:layout_auto_basewidth="height"
+        android:layout_height="50dp"
         android:hint="输入汉字或者拼音" />
 
 
