@@ -29,7 +29,7 @@
         <TextView
             android:id="@+id/tv_input"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="@dimen/height_edittext"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/shape_edittext_bg"
             android:drawableLeft="@drawable/ic_search"
@@ -94,7 +94,6 @@
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout

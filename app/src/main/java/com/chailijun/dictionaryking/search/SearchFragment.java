@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -26,12 +27,12 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 public class SearchFragment extends BaseFragment implements SearchContract.View {
-
 
     @BindView(R.id.et_input)
     EditText etInput;
@@ -45,7 +46,7 @@ public class SearchFragment extends BaseFragment implements SearchContract.View 
 
     private SearchFragmentListener searchFragmentListener;
 
-    interface SearchFragmentListener{
+    interface SearchFragmentListener {
 
         void gotoDetail(Dictionary dictionary);
     }
@@ -53,7 +54,7 @@ public class SearchFragment extends BaseFragment implements SearchContract.View 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof SearchFragmentListener){
+        if (context instanceof SearchFragmentListener) {
             this.searchFragmentListener = ((SearchFragmentListener) context);
         }
     }
@@ -88,7 +89,7 @@ public class SearchFragment extends BaseFragment implements SearchContract.View 
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                if (searchFragmentListener != null){
+                if (searchFragmentListener != null) {
                     Dictionary dictionary = (Dictionary) adapter.getData().get(position);
                     searchFragmentListener.gotoDetail(dictionary);
                 }
@@ -145,7 +146,7 @@ public class SearchFragment extends BaseFragment implements SearchContract.View 
 
     @Override
     public void onDestroy() {
-        if (mPresenter != null){
+        if (mPresenter != null) {
             mPresenter.unsubscribe();
         }
         super.onDestroy();
@@ -158,7 +159,7 @@ public class SearchFragment extends BaseFragment implements SearchContract.View 
 
     @Override
     public void showHanzi(List<Dictionary> dictionaryList) {
-        if (mAdapter != null){
+        if (mAdapter != null) {
             mAdapter.setNewData(dictionaryList);
         }
     }
@@ -166,5 +167,26 @@ public class SearchFragment extends BaseFragment implements SearchContract.View 
     @Override
     public void setPresenter(SearchContract.Presenter presenter) {
         mPresenter = checkNotNull(presenter);
+    }
+
+    @OnClick({R.id.iv_back, R.id.tv_cancel})
+    public void onViewClick(View view) {
+        switch (view.getId()) {
+            case R.id.iv_back:
+                if (getActivity() != null){
+                    getActivity().onBackPressed();
+                }
+                break;
+
+            case R.id.tv_cancel:
+                if (etInput != null){
+                    if (!TextUtils.isEmpty(etInput.getText())){
+                        etInput.setText("");
+                    }
+                }
+                break;
+            default:
+                break;
+        }
     }
 }

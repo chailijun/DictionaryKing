@@ -13,7 +13,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -152,7 +151,7 @@ public class DetailFragment extends BaseFragment {
         if (dictionary != null) {
             tv_hanzi.setText(dictionary.getZi());
             //设置字体
-            Typeface typeface=Typeface.createFromAsset(C.get().getAssets(),"HuaWenKaiTi.ttf");
+            Typeface typeface=Typeface.createFromAsset(C.get().getAssets(), "fonts/HuaWenKaiTi.ttf");
             tv_hanzi.setTypeface(typeface);
 
             //设置拼音

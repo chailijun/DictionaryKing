@@ -52,6 +52,9 @@ dependencies {
 //    //https://github.com/hongyangAndroid/AndroidAutoLayout
 //    api 'com.zhy:autolayout:1.4.5'
 
+    //修改系统默认字体
+    //https://github.com/chrisjenx/Calligraphy
+    api 'uk.co.chrisjenx:calligraphy:2.3.0'
 
     //gson
     api "com.google.code.gson:gson:2.4"

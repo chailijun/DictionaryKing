@@ -10,6 +10,7 @@ import com.chailijun.baselib.utils.schedulers.SchedulerProvider;
 import com.chailijun.dictionaryking.R;
 import com.chailijun.dictionaryking.utils.ActivityUtils;
 import com.chailijun.dictionaryking.utils.JumpUtils;
+import com.chailijun.dictionaryking.utils.KeyboardUtil;
 
 public class SearchActivity extends BaseActivity implements SearchFragment.SearchFragmentListener{
 
@@ -37,6 +38,12 @@ public class SearchActivity extends BaseActivity implements SearchFragment.Searc
                 searchFragment,
                 SchedulerProvider.getInstance()
         );
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        KeyboardUtil.hideKeyboard(this);
     }
 
     @Override

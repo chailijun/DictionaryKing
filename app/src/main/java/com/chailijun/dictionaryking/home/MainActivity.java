@@ -72,11 +72,11 @@ public class MainActivity extends BaseActivity implements MainView {
     }
 
     private void initView() {
-        //设置字体
-        Typeface typeface = Typeface.createFromAsset(C.get().getAssets(), "HuaWenKaiTi.ttf");
-        tv_logo.setTypeface(typeface);
-        tv_daily_hanzi.setTypeface(typeface);
-        tv_daily_jieshi.setTypeface(typeface);
+//        //设置字体
+//        Typeface typeface = Typeface.createFromAsset(C.get().getAssets(), "fonts/HuaWenKaiTi.ttf");
+//        tv_logo.setTypeface(typeface);
+//        tv_daily_hanzi.setTypeface(typeface);
+//        tv_daily_jieshi.setTypeface(typeface);
     }
 
     private void initToolbar() {

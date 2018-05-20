@@ -3,16 +3,23 @@
     android:layout_width="match_parent"
     android:layout_height="50dp"
     xmlns:tools="http://schemas.android.com/tools"
+    android:paddingLeft="@dimen/marginLeft"
+    android:paddingRight="@dimen/marginRight"
     android:gravity="center_vertical"
     android:orientation="horizontal">
 
     <TextView
+        android:textSize="@dimen/text_size_18"
+        android:textColor="@color/text_color_common"
         tools:text="石"
         android:id="@+id/tv_hanzi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <TextView
+        android:textColor="@color/text_color_grey"
+        android:textSize="@dimen/text_size_16"
+        android:layout_marginLeft="4dp"
         tools:text="shi"
         android:id="@+id/tv_pinyin"
         android:layout_width="wrap_content"
